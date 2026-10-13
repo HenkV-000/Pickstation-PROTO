@@ -73,33 +73,31 @@
     .side-footer { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; line-height: 1.7; }
     .side-footer strong { color: #555d53; }
     main { min-width: 0; }
-    .page-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 15px; margin: 0 0 18px; }
-    .eyebrow { margin: 0 0 5px; color: var(--green); font-size: 10px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase; }
-    h1 { margin: 0; font: 700 27px Georgia, "Times New Roman", serif; letter-spacing: 0; }
+    h1 { margin: 0; font: 700 29px Georgia, "Times New Roman", serif; letter-spacing: 0; }
     .task-number { color: var(--muted); font-size: 12px; }
     .task-number strong { color: var(--ink); }
-    .work-grid { display: grid; grid-template-columns: minmax(360px, 1.1fr) minmax(310px, 0.9fr); gap: 16px; align-items: stretch; }
+    .work-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(270px, .86fr); gap: 16px; align-items: stretch; }
     .panel { min-width: 0; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); box-shadow: var(--shadow); }
-    .task-panel { padding: 20px; }
-    .panel-kicker { display: flex; justify-content: space-between; align-items: center; gap: 10px; color: var(--muted); font-size: 11px; }
+    .task-panel { padding: 25px; }
+    .task-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-bottom: 21px; border-bottom: 1px solid var(--line); }
+    .task-heading-meta { display: flex; align-items: center; gap: 11px; flex: none; }
     .pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 4px; padding: 5px 8px; background: var(--green-wash); color: var(--green-dark); font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; }
     .pill.orange { background: var(--orange-wash); color: #a64626; }
     .pill.yellow { background: #f8f1d9; color: #826814; }
-    .bin-block { display: flex; align-items: center; gap: 15px; margin: 20px 0 18px; padding: 15px; border-radius: 6px; background: #f5f6f1; }
+    .bin-block { display: flex; align-items: center; gap: 15px; margin: 19px 0 14px; padding: 15px; border-radius: 6px; background: #f5f6f1; }
     .bin-illustration { width: 61px; height: 51px; position: relative; display: grid; place-items: center; flex: none; border: 2px solid #818a7c; border-top: 5px solid #818a7c; border-radius: 3px 3px 7px 7px; color: #525c51; font: 700 11px Georgia, serif; }
     .bin-illustration::before { content: ""; position: absolute; top: -10px; left: 7px; right: 7px; height: 5px; border: 2px solid #818a7c; border-bottom: 0; border-radius: 4px 4px 0 0; }
     .bin-details small { display: block; margin-bottom: 4px; color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .7px; }
     .bin-details strong { font-size: 18px; letter-spacing: .2px; }
     .bin-arrived { margin-left: auto; align-self: flex-start; color: var(--green); font-size: 10px; font-weight: 750; white-space: nowrap; }
     .bin-arrived span { margin-right: 4px; }
-    .instruction { margin-bottom: 17px; }
-    .instruction h2 { margin: 0 0 5px; font-size: 19px; letter-spacing: 0; }
-    .instruction p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
-    .product-row { display: grid; grid-template-columns: 54px 1fr auto; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .product-swatch { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 5px; background: #e8e6dc; color: #686859; font: 700 12px Georgia, serif; }
-    .product-info strong { display: block; margin-bottom: 4px; font-size: 13px; }
-    .product-info span { color: var(--muted); font-size: 11px; }
+    .product-row { display: grid; grid-template-columns: 150px minmax(0, 1fr); align-items: center; gap: 20px; padding: 17px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .product-image { width: 150px; height: 126px; display: block; border-radius: 5px; background: #f2f3ee; object-fit: contain; }
+    .product-info strong { display: block; margin-bottom: 6px; font-size: 17px; }
+    .product-info > span { display: block; color: var(--muted); font-size: 12px; }
     .product-sku { color: var(--muted); font-size: 10px; text-align: right; }
+    .product-info .product-sku { margin-top: 11px; text-align: left; }
+    .product-photo-credit { display: inline-block; margin-top: 10px; color: #777e74; font-size: 9px; text-decoration: underline; text-underline-offset: 2px; }
     .qty-layout { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px 0; }
     .qty-label { color: var(--muted); font-size: 11px; }
     .qty-label strong { display: block; margin-top: 4px; color: var(--ink); font-size: 12px; }
@@ -119,21 +117,20 @@
     .primary-action:disabled { background: #aab8ad; cursor: not-allowed; }
     .task-meta { display: flex; justify-content: space-between; gap: 10px; margin-top: 13px; color: var(--muted); font-size: 10px; }
     .right-column { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 16px; }
-    .wall-panel { padding: 18px; }
+    .wall-panel { padding: 18px; transition: opacity .18s, filter .18s; }
+    .wall-panel.muted { opacity: .38; filter: grayscale(1); }
     .wall-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 15px; }
     .wall-header h2 { margin: 0 0 4px; font: 700 17px Georgia, "Times New Roman", serif; letter-spacing: 0; }
-    .wall-header p { margin: 0; color: var(--muted); font-size: 10px; }
     .wall-status { display: flex; align-items: center; gap: 6px; color: #6b7268; font-size: 10px; white-space: nowrap; }
     .wall-status .state-dot { width: 6px; height: 6px; box-shadow: none; }
-    .carton-list { display: grid; gap: 8px; }
-    .carton { display: grid; grid-template-columns: 37px 1fr auto; align-items: center; gap: 10px; min-height: 59px; padding: 8px; border: 1px solid var(--line); border-radius: 5px; background: white; cursor: pointer; text-align: left; transition: border-color .15s, background .15s; }
+    .carton-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; }
+    .carton { aspect-ratio: 1 / .94; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 5px; background: white; cursor: pointer; text-align: center; transition: border-color .15s, background .15s, box-shadow .15s; }
     .carton:hover { border-color: #97b7a2; }
-    .carton.lit { border-color: #e3b72a; background: #fffbee; box-shadow: inset 3px 0 0 var(--yellow); }
-    .carton-light { width: 33px; height: 33px; display: grid; place-items: center; border: 1px solid #d6dad1; border-radius: 5px; background: #f0f1ed; color: #959b91; font-size: 12px; }
-    .carton.lit .carton-light { border-color: #e5bb30; background: var(--yellow); color: #553f00; box-shadow: 0 0 12px #f1c84657; }
-    .carton-copy strong { display: block; font-size: 11px; }
-    .carton-copy small { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; }
-    .carton-qty { color: #444b41; font-size: 11px; font-weight: 750; white-space: nowrap; }
+    .carton.lit { border-color: #e3b72a; background: #fffbee; box-shadow: inset 0 0 0 2px #f1c846, 0 0 12px #f1c84639; }
+    .carton-code { color: #4a5147; font-size: 12px; font-weight: 800; }
+    .carton-qty { color: var(--muted); font-size: 9px; font-weight: 700; white-space: nowrap; }
+    .carton.lit .carton-code { color: #765c00; }
+    .carton.lit .carton-qty { color: #826814; }
     .wall-hint { margin: 13px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
     .flow-panel { padding: 16px 18px; }
     .flow-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
@@ -150,7 +147,7 @@
     .toast.show { opacity: 1; transform: translateY(0); }
     @media (max-width: 1050px) {
       .workspace { grid-template-columns: 190px minmax(0, 1fr); padding: 20px; gap: 16px; }
-      .work-grid { grid-template-columns: minmax(300px, 1fr) minmax(270px, .85fr); gap: 12px; }
+      .work-grid { grid-template-columns: minmax(0, 1.7fr) minmax(250px, .9fr); gap: 12px; }
       .task-panel, .wall-panel { padding: 15px; }
     }
     @media (max-width: 780px) {
@@ -168,13 +165,12 @@
       .mode-list { display: flex; overflow-x: auto; padding-bottom: 4px; }
       .mode-button { flex: none; min-height: 39px; padding: 0 11px; font-size: 12px; }
       .mode-icon { width: auto; }
-      .page-heading { align-items: center; margin-bottom: 13px; }
-      h1 { font-size: 23px; }
+      h1 { font-size: 24px; }
       .work-grid { grid-template-columns: 1fr; }
       .right-column { grid-template-rows: auto auto; }
-      .wall-panel { order: 0; }
-      .flow-panel { order: 1; }
-      .task-panel { order: 2; }
+      .task-panel { order: 0; }
+      .wall-panel { order: 1; }
+      .flow-panel { order: 2; }
       .right-column { display: contents; }
     }
     @media (max-width: 420px) {
@@ -182,12 +178,19 @@
       .top-context > span:first-child, .context-divider { display: none; }
       .topbar { gap: 7px; }
       .work-grid { display: flex; flex-direction: column; }
-      .task-panel { order: 2; }
+      .task-panel { order: 0; }
       .right-column { display: contents; }
       .wall-panel { order: 1; }
-      .flow-panel { order: 3; }
+      .flow-panel { order: 2; }
       .bin-block { padding: 12px; }
       .bin-arrived { font-size: 9px; }
+      .task-heading { align-items: flex-start; gap: 8px; }
+      .task-heading-meta { flex-direction: column; align-items: flex-end; gap: 5px; }
+      .task-number { font-size: 10px; white-space: nowrap; }
+      .product-row { grid-template-columns: 104px minmax(0, 1fr); gap: 12px; }
+      .product-image { width: 104px; height: 100px; }
+      .product-info strong { font-size: 14px; }
+      .carton-list { gap: 5px; }
     }
   </style>
 </head>
@@ -227,24 +230,25 @@
       </aside>
 
       <main>
-        <div class="page-heading">
-          <div><p class="eyebrow" id="page-eyebrow">Inslag · Putaway</p><h1 id="page-title">Plaats artikel in bak</h1></div>
-          <div class="task-number">Taak <strong id="task-id">IN-840231</strong></div>
-        </div>
-
         <div class="work-grid">
-          <section class="panel task-panel" aria-labelledby="task-instruction">
-            <div class="panel-kicker"><span id="task-source">Northstar ERP · Inslagorder</span><span class="pill" id="task-pill">Inslag</span></div>
+          <section class="panel task-panel" aria-labelledby="page-title">
+            <div class="task-heading">
+              <h1 id="page-title">Plaats artikel in bak</h1>
+              <div class="task-heading-meta"><span class="task-number">Taak <strong id="task-id">IN-840231</strong></span><span class="pill" id="task-pill">Inslag</span></div>
+            </div>
             <div class="bin-block">
               <div class="bin-illustration" id="bin-code">B-0472</div>
               <div class="bin-details"><small>Actieve Hai-bak</small><strong id="bin-label">Bin B-0472</strong></div>
               <div class="bin-arrived"><span>●</span> Aangekomen</div>
             </div>
-            <div class="instruction"><h2 id="task-instruction">Plaats artikel in bak</h2><p id="task-guidance">Scan het artikel en leg het gevraagde aantal in de getoonde bak.</p></div>
             <div class="product-row">
-              <div class="product-swatch" id="product-icon">MX</div>
-              <div class="product-info"><strong id="product-name">M8 zeskantbout, verzinkt</strong><span id="product-description">Bevestigingsmateriaal · doos 100 stuks</span></div>
-              <div class="product-sku">Artikel<br><strong id="product-sku">MAT-008421</strong></div>
+              <img class="product-image" id="product-image" src="assets/zinc-bolt.jpg" alt="Verzinkte zeskantbout met moer">
+              <div class="product-info">
+                <strong id="product-name">M8 zeskantbout, verzinkt</strong>
+                <span id="product-description">Bevestigingsmateriaal · doos 100 stuks</span>
+                <span class="product-sku">Artikel <strong id="product-sku">MAT-008421</strong></span>
+                <a class="product-photo-credit" id="photo-credit" href="https://commons.wikimedia.org/wiki/File:Late_1900s_zinc_plated_M12_8_G_hex_head_machine_bolt_and_nut_by_ESKA_GmbH_Automotive_Germany_view_1.jpg" target="_blank" rel="noreferrer">Foto: R. Henrik Nilsson · CC BY 4.0</a>
+              </div>
             </div>
             <div class="qty-layout">
               <div class="qty-label" id="quantity-label">Te plaatsen<strong id="quantity-detail">Orderhoeveelheid: 240 stuks</strong></div>
@@ -257,14 +261,21 @@
           </section>
 
           <div class="right-column">
-            <section class="panel wall-panel" aria-labelledby="wall-title">
-              <div class="wall-header"><div><h2 id="wall-title">Put-to-light wand</h2><p id="wall-subtitle">Bestemming voor de actieve pickregel</p></div><div class="wall-status"><span class="state-dot"></span>Wand 02 online</div></div>
+            <section class="panel wall-panel" id="wall-panel" aria-labelledby="wall-title">
+              <div class="wall-header"><h2 id="wall-title">Put-to-light wand</h2><div class="wall-status"><span class="state-dot"></span>Wand 02 online</div></div>
               <div class="carton-list" id="carton-list">
-                <button class="carton" data-carton="A"><span class="carton-light">A</span><span class="carton-copy"><strong>Order OU-219084</strong><small>Doos A · Klant 10482</small></span><span class="carton-qty">3 stuks</span></button>
-                <button class="carton lit" data-carton="B"><span class="carton-light">B</span><span class="carton-copy"><strong>Order OU-219091</strong><small>Doos B · Klant 20814</small></span><span class="carton-qty">1 stuk</span></button>
-                <button class="carton" data-carton="C"><span class="carton-light">C</span><span class="carton-copy"><strong>Order OU-219117</strong><small>Doos C · Klant 31902</small></span><span class="carton-qty">2 stuks</span></button>
+                <button class="carton" data-carton="01" data-order="OU-219084" data-qty="3" aria-label="Doos 01, order OU-219084, 3 stuks"><span class="carton-code">01</span><span class="carton-qty">3 st.</span></button>
+                <button class="carton" data-carton="02" data-order="OU-219084" data-qty="1" aria-label="Doos 02, order OU-219084, 1 stuk"><span class="carton-code">02</span><span class="carton-qty">1 st.</span></button>
+                <button class="carton" data-carton="03" data-order="OU-219091" data-qty="2" aria-label="Doos 03, order OU-219091, 2 stuks"><span class="carton-code">03</span><span class="carton-qty">2 st.</span></button>
+                <button class="carton lit" data-carton="04" data-order="OU-219091" data-qty="1" aria-label="Doos 04, order OU-219091, 1 stuk"><span class="carton-code">04</span><span class="carton-qty">1 st.</span></button>
+                <button class="carton" data-carton="05" data-order="OU-219117" data-qty="2" aria-label="Doos 05, order OU-219117, 2 stuks"><span class="carton-code">05</span><span class="carton-qty">2 st.</span></button>
+                <button class="carton" data-carton="06" data-order="OU-219117" data-qty="1" aria-label="Doos 06, order OU-219117, 1 stuk"><span class="carton-code">06</span><span class="carton-qty">1 st.</span></button>
+                <button class="carton" data-carton="07" data-order="OU-219126" data-qty="4" aria-label="Doos 07, order OU-219126, 4 stuks"><span class="carton-code">07</span><span class="carton-qty">4 st.</span></button>
+                <button class="carton" data-carton="08" data-order="OU-219126" data-qty="1" aria-label="Doos 08, order OU-219126, 1 stuk"><span class="carton-code">08</span><span class="carton-qty">1 st.</span></button>
+                <button class="carton" data-carton="09" data-order="OU-219143" data-qty="2" aria-label="Doos 09, order OU-219143, 2 stuks"><span class="carton-code">09</span><span class="carton-qty">2 st.</span></button>
+                <button class="carton" data-carton="10" data-order="OU-219143" data-qty="3" aria-label="Doos 10, order OU-219143, 3 stuks"><span class="carton-code">10</span><span class="carton-qty">3 st.</span></button>
               </div>
-              <p class="wall-hint" id="wall-hint">Licht brandt bij doos B. Plaats de gepickte artikelen in de aangegeven doos.</p>
+              <p class="wall-hint" id="wall-hint">Licht geactiveerd bij doos 04 · OU-219091 · 1 stuk.</p>
             </section>
             <section class="panel flow-panel" aria-label="Taakvoortgang">
               <div class="flow-title"><strong>Taakvoortgang</strong><span id="progress-label">1 van 3 regels</span></div>
@@ -280,22 +291,22 @@
   <script>
     const taskModes = {
       putaway: {
-        eyebrow: "Inslag · Putaway", title: "Plaats artikel in bak", id: "IN-840231", source: "Northstar ERP · Inslagorder", pill: "Inslag", pillClass: "",
-        instruction: "Plaats artikel in bak", guidance: "Scan het artikel en leg het gevraagde aantal in de getoonde bak.", bin: "B-0472", item: "M8 zeskantbout, verzinkt", description: "Bevestigingsmateriaal · doos 100 stuks", sku: "MAT-008421", icon: "MX", qty: 240, qtyLabel: "Te plaatsen", qtyDetail: "Orderhoeveelheid: 240 stuks", scan: "Scan artikel MAT-008421 om verder te gaan.", meta: "Order IN-840231 · Regel 1 van 3", wall: false, action: "Bevestig plaatsing"
+        title: "Plaats artikel in bak", id: "IN-840231", pill: "Inslag", pillClass: "",
+        bin: "B-0472", item: "M8 zeskantbout, verzinkt", description: "Bevestigingsmateriaal · doos 100 stuks", sku: "MAT-008421", image: "assets/zinc-bolt.jpg", imageAlt: "Verzinkte zeskantbout met moer", photoCredit: "Foto: R. Henrik Nilsson · CC BY 4.0", photoUrl: "https://commons.wikimedia.org/wiki/File:Late_1900s_zinc_plated_M12_8_G_hex_head_machine_bolt_and_nut_by_ESKA_GmbH_Automotive_Germany_view_1.jpg", qty: 240, qtyLabel: "Te plaatsen", qtyDetail: "Orderhoeveelheid: 240 stuks", meta: "Order IN-840231 · Regel 1 van 3", wall: false, action: "Bevestig plaatsing"
       },
       pick: {
-        eyebrow: "Uitslag · Picking", title: "Pick artikel uit bak", id: "OU-219084", source: "Northstar ERP · Pickorder", pill: "Uitslag", pillClass: "orange",
-        instruction: "Pick artikel uit bak", guidance: "Neem het gevraagde aantal uit de bak en plaats het in de verlichte doos.", bin: "B-1128", item: "Lager 608-2RS", description: "Aandrijftechniek · per stuk", sku: "LAG-000608", icon: "608", qty: 3, qtyLabel: "Te picken", qtyDetail: "Orderhoeveelheid: 3 stuks", scan: "Scan artikel LAG-000608 om verder te gaan.", meta: "Order OU-219084 · Regel 1 van 2", wall: true, action: "Bevestig pick"
+        title: "Pick artikel uit bak", id: "OU-219084", pill: "Uitslag", pillClass: "orange",
+        bin: "B-1128", item: "Lager 608-2RS", description: "Aandrijftechniek · per stuk", sku: "LAG-000608", image: "assets/bearing-608.jpg", imageAlt: "Stalen kogellager 608", photoCredit: "Foto: R. Henrik Nilsson · CC BY 4.0", photoUrl: "https://commons.wikimedia.org/wiki/File:1990s_NSK_Nippon_Seiko_Kabushiki_gaisha_ball_bearing_608Z_made_in_Japan.jpg", qty: 3, qtyLabel: "Te picken", qtyDetail: "Orderhoeveelheid: 3 stuks", meta: "Order OU-219084 · Regel 1 van 2", wall: true, action: "Bevestig pick"
       },
       count: {
-        eyebrow: "Voorraad · Telling", title: "Controleer bakinhoud", id: "TT-003912", source: "Northstar ERP · Telling", pill: "Telling", pillClass: "yellow",
-        instruction: "Tel en controleer voorraad", guidance: "Controleer artikel en voer het werkelijk getelde aantal in.", bin: "B-0831", item: "Kabelbinder 200 mm zwart", description: "Montagemateriaal · zak 100 stuks", sku: "MON-020154", icon: "CT", qty: 100, qtyLabel: "Geteld aantal", qtyDetail: "Verwacht: 100 stuks", scan: "Scan artikel MON-020154 om de telling te starten.", meta: "Telling TT-003912 · Artikel 1 van 1", wall: false, action: "Bevestig telling"
+        title: "Controleer bakinhoud", id: "TT-003912", pill: "Telling", pillClass: "yellow",
+        bin: "B-0831", item: "Kabelbinder 200 mm zwart", description: "Montagemateriaal · zak 100 stuks", sku: "MON-020154", image: "assets/cable-tie.jpg", imageAlt: "Assortiment gekleurde kabelbinders", photoCredit: "Foto: Silverxxx · CC BY-SA 3.0", photoUrl: "https://commons.wikimedia.org/wiki/File:Cable_ties.jpg", qty: 100, qtyLabel: "Geteld aantal", qtyDetail: "Verwacht: 100 stuks", meta: "Telling TT-003912 · Artikel 1 van 1", wall: false, action: "Bevestig telling"
       }
     };
     let currentMode = "putaway";
     let currentQty = taskModes.putaway.qty;
     let scanned = false;
-    let activeCarton = "B";
+    let activeCarton = "04";
     let toastTimer;
     const $ = (id) => document.getElementById(id);
     const scanInput = $("scan-input");
@@ -315,20 +326,19 @@
       currentQty = task.qty;
       scanned = false;
       document.querySelectorAll(".mode-button").forEach((button) => button.classList.toggle("active", button.dataset.mode === mode));
-      $("page-eyebrow").textContent = task.eyebrow;
       $("page-title").textContent = task.title;
       $("task-id").textContent = task.id;
-      $("task-source").textContent = task.source;
       $("task-pill").textContent = task.pill;
       $("task-pill").className = `pill ${task.pillClass}`.trim();
-      $("task-instruction").textContent = task.instruction;
-      $("task-guidance").textContent = task.guidance;
       $("bin-code").textContent = task.bin;
       $("bin-label").textContent = `Bin ${task.bin}`;
       $("product-name").textContent = task.item;
       $("product-description").textContent = task.description;
       $("product-sku").textContent = task.sku;
-      $("product-icon").textContent = task.icon;
+      $("product-image").src = task.image;
+      $("product-image").alt = task.imageAlt;
+      $("photo-credit").href = task.photoUrl;
+      $("photo-credit").textContent = task.photoCredit;
       $("quantity-label").firstChild.textContent = `${task.qtyLabel} `;
       $("quantity-detail").textContent = task.qtyDetail;
       $("quantity").textContent = currentQty;
@@ -336,10 +346,13 @@
       $("scan-message").className = "scan-message";
       $("task-meta-left").textContent = task.meta;
       $("complete-task").textContent = task.action;
-      $("wall-subtitle").textContent = task.wall ? "Bestemming voor de actieve pickregel" : "Geen actieve bestemming in deze taak";
-      $("wall-hint").textContent = task.wall ? `Licht brandt bij doos ${activeCarton}. Plaats de gepickte artikelen in de aangegeven doos.` : "De put-to-lightwand wordt gebruikt bij picktaken.";
-      $("carton-list").style.opacity = task.wall ? "1" : ".55";
-      $("carton-list").style.pointerEvents = task.wall ? "auto" : "none";
+      $("wall-panel").classList.toggle("muted", !task.wall);
+      $("wall-panel").setAttribute("aria-disabled", String(!task.wall));
+      document.querySelectorAll(".carton").forEach((tile) => { tile.disabled = !task.wall; });
+      const activeTile = document.querySelector(`.carton[data-carton="${activeCarton}"]`);
+      $("wall-hint").textContent = task.wall && activeTile
+        ? `Licht geactiveerd bij doos ${activeCarton} · ${activeTile.dataset.order} · ${activeTile.dataset.qty} ${activeTile.dataset.qty === "1" ? "stuk" : "stuks"}.`
+        : "Geen actieve pickregel.";
       completeButton.disabled = true;
       scanInput.value = "";
       updateProgress();
@@ -387,10 +400,10 @@
     });
     $("carton-list").addEventListener("click", (event) => {
       const carton = event.target.closest(".carton");
-      if (!carton) return;
+      if (!carton || !taskModes[currentMode].wall) return;
       activeCarton = carton.dataset.carton;
       document.querySelectorAll(".carton").forEach((item) => item.classList.toggle("lit", item === carton));
-      $("wall-hint").textContent = `Licht geactiveerd bij doos ${activeCarton}. Plaats de gepickte artikelen in de aangegeven doos.`;
+      $("wall-hint").textContent = `Licht geactiveerd bij doos ${activeCarton} · ${carton.dataset.order} · ${carton.dataset.qty} ${carton.dataset.qty === "1" ? "stuk" : "stuks"}.`;
     });
     completeButton.addEventListener("click", () => {
       const task = taskModes[currentMode];

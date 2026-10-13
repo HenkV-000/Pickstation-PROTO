@@ -85,9 +85,8 @@
     .pill.orange { background: var(--orange-wash); color: #a64626; }
     .pill.yellow { background: #f8f1d9; color: #826814; }
     .bin-block { display: flex; align-items: center; gap: 15px; margin: 19px 0 14px; padding: 15px; border-radius: 6px; background: #f5f6f1; }
-    .bin-illustration { width: 61px; height: 51px; position: relative; display: grid; place-items: center; flex: none; border: 2px solid #818a7c; border-top: 5px solid #818a7c; border-radius: 3px 3px 7px 7px; color: #525c51; font: 700 11px Georgia, serif; }
+    .bin-illustration { width: 70px; height: 54px; position: relative; display: flex; align-items: center; justify-content: center; flex: none; border: 2px solid #818a7c; border-top: 5px solid #818a7c; border-radius: 3px 3px 7px 7px; color: #525c51; font: 700 13px Georgia, serif; line-height: 1; text-align: center; }
     .bin-illustration::before { content: ""; position: absolute; top: -10px; left: 7px; right: 7px; height: 5px; border: 2px solid #818a7c; border-bottom: 0; border-radius: 4px 4px 0 0; }
-    .bin-details small { display: block; margin-bottom: 4px; color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .7px; }
     .bin-details strong { font-size: 18px; letter-spacing: .2px; }
     .bin-arrived { margin-left: auto; align-self: flex-start; color: var(--green); font-size: 10px; font-weight: 750; white-space: nowrap; }
     .bin-arrived span { margin-right: 4px; }
@@ -97,7 +96,6 @@
     .product-info > span { display: block; color: var(--muted); font-size: 12px; }
     .product-sku { color: var(--muted); font-size: 10px; text-align: right; }
     .product-info .product-sku { margin-top: 11px; text-align: left; }
-    .product-photo-credit { display: inline-block; margin-top: 10px; color: #777e74; font-size: 9px; text-decoration: underline; text-underline-offset: 2px; }
     .qty-layout { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px 0; }
     .qty-label { color: var(--muted); font-size: 11px; }
     .qty-label strong { display: block; margin-top: 4px; color: var(--ink); font-size: 12px; }
@@ -238,7 +236,7 @@
             </div>
             <div class="bin-block">
               <div class="bin-illustration" id="bin-code">B-0472</div>
-              <div class="bin-details"><small>Actieve Hai-bak</small><strong id="bin-label">Bin B-0472</strong></div>
+              <div class="bin-details"><strong id="bin-label">Bin B-0472</strong></div>
               <div class="bin-arrived"><span>●</span> Aangekomen</div>
             </div>
             <div class="product-row">
@@ -247,7 +245,6 @@
                 <strong id="product-name">M8 zeskantbout, verzinkt</strong>
                 <span id="product-description">Bevestigingsmateriaal · doos 100 stuks</span>
                 <span class="product-sku">Artikel <strong id="product-sku">MAT-008421</strong></span>
-                <a class="product-photo-credit" id="photo-credit" href="https://commons.wikimedia.org/wiki/File:Late_1900s_zinc_plated_M12_8_G_hex_head_machine_bolt_and_nut_by_ESKA_GmbH_Automotive_Germany_view_1.jpg" target="_blank" rel="noreferrer">Foto: R. Henrik Nilsson · CC BY 4.0</a>
               </div>
             </div>
             <div class="qty-layout">
@@ -292,15 +289,15 @@
     const taskModes = {
       putaway: {
         title: "Plaats artikel in bak", id: "IN-840231", pill: "Inslag", pillClass: "",
-        bin: "B-0472", item: "M8 zeskantbout, verzinkt", description: "Bevestigingsmateriaal · doos 100 stuks", sku: "MAT-008421", image: "assets/zinc-bolt.jpg", imageAlt: "Verzinkte zeskantbout met moer", photoCredit: "Foto: R. Henrik Nilsson · CC BY 4.0", photoUrl: "https://commons.wikimedia.org/wiki/File:Late_1900s_zinc_plated_M12_8_G_hex_head_machine_bolt_and_nut_by_ESKA_GmbH_Automotive_Germany_view_1.jpg", qty: 240, qtyLabel: "Te plaatsen", qtyDetail: "Orderhoeveelheid: 240 stuks", meta: "Order IN-840231 · Regel 1 van 3", wall: false, action: "Bevestig plaatsing"
+        bin: "B-0472", item: "M8 zeskantbout, verzinkt", description: "Bevestigingsmateriaal · doos 100 stuks", sku: "MAT-008421", image: "assets/zinc-bolt.jpg", imageAlt: "Verzinkte zeskantbout met moer", qty: 240, qtyLabel: "Te plaatsen", qtyDetail: "Orderhoeveelheid: 240 stuks", meta: "Order IN-840231 · Regel 1 van 3", wall: false, action: "Bevestig plaatsing"
       },
       pick: {
         title: "Pick artikel uit bak", id: "OU-219084", pill: "Uitslag", pillClass: "orange",
-        bin: "B-1128", item: "Lager 608-2RS", description: "Aandrijftechniek · per stuk", sku: "LAG-000608", image: "assets/bearing-608.jpg", imageAlt: "Stalen kogellager 608", photoCredit: "Foto: R. Henrik Nilsson · CC BY 4.0", photoUrl: "https://commons.wikimedia.org/wiki/File:1990s_NSK_Nippon_Seiko_Kabushiki_gaisha_ball_bearing_608Z_made_in_Japan.jpg", qty: 3, qtyLabel: "Te picken", qtyDetail: "Orderhoeveelheid: 3 stuks", meta: "Order OU-219084 · Regel 1 van 2", wall: true, action: "Bevestig pick"
+        bin: "B-1128", item: "Lager 608-2RS", description: "Aandrijftechniek · per stuk", sku: "LAG-000608", image: "assets/bearing-608.jpg", imageAlt: "Stalen kogellager 608", qty: 3, qtyLabel: "Te picken", qtyDetail: "Orderhoeveelheid: 3 stuks", meta: "Order OU-219084 · Regel 1 van 2", wall: true, action: "Bevestig pick"
       },
       count: {
         title: "Controleer bakinhoud", id: "TT-003912", pill: "Telling", pillClass: "yellow",
-        bin: "B-0831", item: "Kabelbinder 200 mm zwart", description: "Montagemateriaal · zak 100 stuks", sku: "MON-020154", image: "assets/cable-tie.jpg", imageAlt: "Assortiment gekleurde kabelbinders", photoCredit: "Foto: Silverxxx · CC BY-SA 3.0", photoUrl: "https://commons.wikimedia.org/wiki/File:Cable_ties.jpg", qty: 100, qtyLabel: "Geteld aantal", qtyDetail: "Verwacht: 100 stuks", meta: "Telling TT-003912 · Artikel 1 van 1", wall: false, action: "Bevestig telling"
+        bin: "B-0831", item: "Kabelbinder 200 mm zwart", description: "Montagemateriaal · zak 100 stuks", sku: "MON-020154", image: "assets/cable-tie.jpg", imageAlt: "Assortiment gekleurde kabelbinders", qty: 100, qtyLabel: "Geteld aantal", qtyDetail: "Verwacht: 100 stuks", meta: "Telling TT-003912 · Artikel 1 van 1", wall: false, action: "Bevestig telling"
       }
     };
     let currentMode = "putaway";
@@ -337,8 +334,6 @@
       $("product-sku").textContent = task.sku;
       $("product-image").src = task.image;
       $("product-image").alt = task.imageAlt;
-      $("photo-credit").href = task.photoUrl;
-      $("photo-credit").textContent = task.photoCredit;
       $("quantity-label").firstChild.textContent = `${task.qtyLabel} `;
       $("quantity-detail").textContent = task.qtyDetail;
       $("quantity").textContent = currentQty;

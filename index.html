@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f3ee">
+  <title>VanaPick | Station 04</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #20241f;
+      --muted: #777e74;
+      --line: #dfe2d9;
+      --paper: #fffefa;
+      --canvas: #f2f3ee;
+      --green: #206c4d;
+      --green-dark: #174e39;
+      --green-wash: #e4f0e8;
+      --orange: #d9683a;
+      --orange-wash: #fbebe4;
+      --yellow: #f1c846;
+      --shadow: 0 14px 36px #2534250c;
+      font-family: "Aptos", "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      color: var(--ink);
+      background-color: var(--canvas);
+      background-image: radial-gradient(#cbd0c4 0.65px, transparent 0.65px);
+      background-size: 17px 17px;
+    }
+    button, input, select { font: inherit; }
+    button { color: inherit; }
+    .app-shell { min-height: 100vh; display: grid; grid-template-rows: 68px 1fr; }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      padding: 0 30px; background: var(--paper); border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 11px; min-width: 190px; }
+    .brand-mark { width: 31px; height: 31px; display: grid; place-items: center; background: var(--green); color: white; border-radius: 8px 8px 8px 2px; font: 700 18px Georgia, serif; }
+    .brand-name { font: 700 20px Georgia, "Times New Roman", serif; letter-spacing: 0; }
+    .brand-name span { color: var(--green); }
+    .top-context { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 13px; }
+    .context-divider { height: 24px; width: 1px; background: var(--line); }
+    .station-select { border: 0; background: transparent; color: var(--ink); font-weight: 700; padding: 6px; }
+    .system-state { display: flex; align-items: center; gap: 8px; padding: 8px 11px; border: 1px solid var(--line); border-radius: 6px; background: #fff; font-size: 12px; font-weight: 650; }
+    .state-dot { width: 8px; height: 8px; border-radius: 50%; background: #52a271; box-shadow: 0 0 0 3px #e4f0e8; }
+    .operator { display: flex; align-items: center; gap: 9px; color: #555c53; font-size: 13px; }
+    .avatar { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: #f5dfc8; color: #704b30; font-size: 11px; font-weight: 800; }
+    .workspace { display: grid; grid-template-columns: 222px minmax(0, 1fr); max-width: 1640px; width: 100%; margin: auto; padding: 26px 30px 34px; gap: 25px; }
+    .sidebar { display: flex; flex-direction: column; gap: 22px; }
+    .side-label { margin: 0 0 8px; color: #898f85; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .mode-list { display: grid; gap: 5px; }
+    .mode-button { min-height: 44px; display: flex; align-items: center; gap: 11px; padding: 0 12px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: #5e655b; text-align: left; font-size: 13px; font-weight: 650; cursor: pointer; }
+    .mode-button:hover { background: #ffffff9c; }
+    .mode-button.active { border-color: #d6e5d9; background: var(--green-wash); color: var(--green-dark); }
+    .mode-icon { width: 22px; color: inherit; font-size: 16px; text-align: center; }
+    .queue-card { padding: 15px 14px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); box-shadow: var(--shadow); }
+    .queue-heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .queue-heading strong { font-size: 13px; }
+    .queue-count { padding: 3px 7px; border-radius: 20px; background: #edf0e9; color: #5f665b; font-size: 11px; font-weight: 750; }
+    .queue-item { display: grid; grid-template-columns: 7px 1fr auto; align-items: center; gap: 9px; padding: 10px 0; border-top: 1px solid #eff0eb; }
+    .queue-item:first-of-type { border-top: 0; }
+    .queue-mark { width: 7px; height: 25px; border-radius: 4px; background: var(--green); }
+    .queue-item.pick .queue-mark { background: var(--orange); }
+    .queue-item.count .queue-mark { background: #c59c25; }
+    .queue-item b { display: block; font-size: 11px; }
+    .queue-item small { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; }
+    .queue-item em { color: var(--muted); font-size: 10px; font-style: normal; }
+    .side-footer { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; line-height: 1.7; }
+    .side-footer strong { color: #555d53; }
+    main { min-width: 0; }
+    .page-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 15px; margin: 0 0 18px; }
+    .eyebrow { margin: 0 0 5px; color: var(--green); font-size: 10px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase; }
+    h1 { margin: 0; font: 700 27px Georgia, "Times New Roman", serif; letter-spacing: 0; }
+    .task-number { color: var(--muted); font-size: 12px; }
+    .task-number strong { color: var(--ink); }
+    .work-grid { display: grid; grid-template-columns: minmax(360px, 1.1fr) minmax(310px, 0.9fr); gap: 16px; align-items: stretch; }
+    .panel { min-width: 0; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); box-shadow: var(--shadow); }
+    .task-panel { padding: 20px; }
+    .panel-kicker { display: flex; justify-content: space-between; align-items: center; gap: 10px; color: var(--muted); font-size: 11px; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 4px; padding: 5px 8px; background: var(--green-wash); color: var(--green-dark); font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; }
+    .pill.orange { background: var(--orange-wash); color: #a64626; }
+    .pill.yellow { background: #f8f1d9; color: #826814; }
+    .bin-block { display: flex; align-items: center; gap: 15px; margin: 20px 0 18px; padding: 15px; border-radius: 6px; background: #f5f6f1; }
+    .bin-illustration { width: 61px; height: 51px; position: relative; display: grid; place-items: center; flex: none; border: 2px solid #818a7c; border-top: 5px solid #818a7c; border-radius: 3px 3px 7px 7px; color: #525c51; font: 700 11px Georgia, serif; }
+    .bin-illustration::before { content: ""; position: absolute; top: -10px; left: 7px; right: 7px; height: 5px; border: 2px solid #818a7c; border-bottom: 0; border-radius: 4px 4px 0 0; }
+    .bin-details small { display: block; margin-bottom: 4px; color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .7px; }
+    .bin-details strong { font-size: 18px; letter-spacing: .2px; }
+    .bin-arrived { margin-left: auto; align-self: flex-start; color: var(--green); font-size: 10px; font-weight: 750; white-space: nowrap; }
+    .bin-arrived span { margin-right: 4px; }
+    .instruction { margin-bottom: 17px; }
+    .instruction h2 { margin: 0 0 5px; font-size: 19px; letter-spacing: 0; }
+    .instruction p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .product-row { display: grid; grid-template-columns: 54px 1fr auto; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .product-swatch { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 5px; background: #e8e6dc; color: #686859; font: 700 12px Georgia, serif; }
+    .product-info strong { display: block; margin-bottom: 4px; font-size: 13px; }
+    .product-info span { color: var(--muted); font-size: 11px; }
+    .product-sku { color: var(--muted); font-size: 10px; text-align: right; }
+    .qty-layout { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px 0; }
+    .qty-label { color: var(--muted); font-size: 11px; }
+    .qty-label strong { display: block; margin-top: 4px; color: var(--ink); font-size: 12px; }
+    .stepper { display: flex; align-items: center; gap: 11px; }
+    .stepper button { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 5px; background: white; font-size: 18px; cursor: pointer; }
+    .stepper button:hover { border-color: var(--green); color: var(--green); }
+    .stepper output { min-width: 29px; text-align: center; font-size: 20px; font-weight: 750; font-variant-numeric: tabular-nums; }
+    .scan-field { display: flex; gap: 8px; margin-bottom: 11px; }
+    .scan-field input { width: 100%; min-width: 0; height: 42px; padding: 0 12px; border: 1px solid #ccd2c7; border-radius: 5px; outline: 0; background: white; font-size: 12px; }
+    .scan-field input:focus { border-color: var(--green); box-shadow: 0 0 0 3px #206c4d19; }
+    .scan-field input::placeholder { color: #a0a69d; }
+    .scan-message { min-height: 16px; margin: -4px 0 8px; color: var(--muted); font-size: 10px; }
+    .scan-message.error { color: #b23b2e; }
+    .scan-message.success { color: var(--green); }
+    .primary-action { width: 100%; min-height: 43px; border: 0; border-radius: 5px; background: var(--green); color: white; font-size: 12px; font-weight: 750; cursor: pointer; transition: background .15s, transform .15s; }
+    .primary-action:hover:not(:disabled) { background: var(--green-dark); transform: translateY(-1px); }
+    .primary-action:disabled { background: #aab8ad; cursor: not-allowed; }
+    .task-meta { display: flex; justify-content: space-between; gap: 10px; margin-top: 13px; color: var(--muted); font-size: 10px; }
+    .right-column { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 16px; }
+    .wall-panel { padding: 18px; }
+    .wall-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 15px; }
+    .wall-header h2 { margin: 0 0 4px; font: 700 17px Georgia, "Times New Roman", serif; letter-spacing: 0; }
+    .wall-header p { margin: 0; color: var(--muted); font-size: 10px; }
+    .wall-status { display: flex; align-items: center; gap: 6px; color: #6b7268; font-size: 10px; white-space: nowrap; }
+    .wall-status .state-dot { width: 6px; height: 6px; box-shadow: none; }
+    .carton-list { display: grid; gap: 8px; }
+    .carton { display: grid; grid-template-columns: 37px 1fr auto; align-items: center; gap: 10px; min-height: 59px; padding: 8px; border: 1px solid var(--line); border-radius: 5px; background: white; cursor: pointer; text-align: left; transition: border-color .15s, background .15s; }
+    .carton:hover { border-color: #97b7a2; }
+    .carton.lit { border-color: #e3b72a; background: #fffbee; box-shadow: inset 3px 0 0 var(--yellow); }
+    .carton-light { width: 33px; height: 33px; display: grid; place-items: center; border: 1px solid #d6dad1; border-radius: 5px; background: #f0f1ed; color: #959b91; font-size: 12px; }
+    .carton.lit .carton-light { border-color: #e5bb30; background: var(--yellow); color: #553f00; box-shadow: 0 0 12px #f1c84657; }
+    .carton-copy strong { display: block; font-size: 11px; }
+    .carton-copy small { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; }
+    .carton-qty { color: #444b41; font-size: 11px; font-weight: 750; white-space: nowrap; }
+    .wall-hint { margin: 13px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .flow-panel { padding: 16px 18px; }
+    .flow-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .flow-title strong { font-size: 12px; }
+    .flow-title span { color: var(--muted); font-size: 10px; }
+    .flow-steps { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .flow-step { position: relative; padding-top: 16px; color: #92988e; font-size: 9px; }
+    .flow-step::before { content: ""; position: absolute; top: 0; left: 0; width: 8px; height: 8px; border: 2px solid #cbd0c6; border-radius: 50%; background: var(--paper); z-index: 1; }
+    .flow-step:not(:last-child)::after { content: ""; position: absolute; top: 3px; left: 9px; width: calc(100% - 8px); height: 2px; background: #dfe2d9; }
+    .flow-step.done, .flow-step.current { color: #4d584c; }
+    .flow-step.done::before, .flow-step.current::before { border-color: var(--green); background: var(--green); }
+    .flow-step.done:not(:last-child)::after { background: var(--green); }
+    .toast { position: fixed; right: 24px; bottom: 24px; padding: 12px 16px; border-radius: 5px; background: #202b22; color: white; box-shadow: 0 8px 24px #0003; font-size: 12px; opacity: 0; transform: translateY(8px); pointer-events: none; transition: .2s; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    @media (max-width: 1050px) {
+      .workspace { grid-template-columns: 190px minmax(0, 1fr); padding: 20px; gap: 16px; }
+      .work-grid { grid-template-columns: minmax(300px, 1fr) minmax(270px, .85fr); gap: 12px; }
+      .task-panel, .wall-panel { padding: 15px; }
+    }
+    @media (max-width: 780px) {
+      .app-shell { grid-template-rows: 58px 1fr; }
+      .topbar { padding: 0 16px; }
+      .brand { min-width: 0; }
+      .brand-name { font-size: 18px; }
+      .top-context { gap: 7px; }
+      .system-state { padding: 7px; font-size: 0; }
+      .system-state .state-dot { margin: 0 3px; }
+      .operator span:last-child { display: none; }
+      .workspace { display: block; padding: 17px 14px 26px; }
+      .sidebar { display: block; margin-bottom: 18px; }
+      .sidebar > .side-label, .side-footer, .queue-card { display: none; }
+      .mode-list { display: flex; overflow-x: auto; padding-bottom: 4px; }
+      .mode-button { flex: none; min-height: 39px; padding: 0 11px; font-size: 12px; }
+      .mode-icon { width: auto; }
+      .page-heading { align-items: center; margin-bottom: 13px; }
+      h1 { font-size: 23px; }
+      .work-grid { grid-template-columns: 1fr; }
+      .right-column { grid-template-rows: auto auto; }
+      .wall-panel { order: 0; }
+      .flow-panel { order: 1; }
+      .task-panel { order: 2; }
+      .right-column { display: contents; }
+    }
+    @media (max-width: 420px) {
+      .brand-mark { width: 28px; height: 28px; }
+      .top-context > span:first-child, .context-divider { display: none; }
+      .topbar { gap: 7px; }
+      .work-grid { display: flex; flex-direction: column; }
+      .task-panel { order: 2; }
+      .right-column { display: contents; }
+      .wall-panel { order: 1; }
+      .flow-panel { order: 3; }
+      .bin-block { padding: 12px; }
+      .bin-arrived { font-size: 9px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">V</div><div class="brand-name">Vana<span>Pick</span></div></div>
+      <div class="top-context">
+        <span>Magazijn Noord</span><span class="context-divider"></span>
+        <select id="station" class="station-select" aria-label="Werkstation">
+          <option>Station 04</option><option>Station 01</option><option>Station 02</option><option>Station 03</option>
+        </select>
+      </div>
+      <div class="top-context">
+        <div class="system-state"><span class="state-dot"></span><span>Hai ESS verbonden</span></div>
+        <div class="operator"><div class="avatar">MV</div><span>M. de Vries</span></div>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar">
+        <div>
+          <p class="side-label">Werkproces</p>
+          <nav class="mode-list" aria-label="Werkproces">
+            <button class="mode-button active" data-mode="putaway"><span class="mode-icon">↓</span>Inslag</button>
+            <button class="mode-button" data-mode="pick"><span class="mode-icon">↑</span>Uitslag</button>
+            <button class="mode-button" data-mode="count"><span class="mode-icon">≡</span>Voorraad tellen</button>
+          </nav>
+        </div>
+        <div class="queue-card">
+          <div class="queue-heading"><strong>Taakwachtrij</strong><span class="queue-count" id="queue-count">3</span></div>
+          <div class="queue-item"><span class="queue-mark"></span><div><b>IN-840231</b><small>3 artikelen · Inslag</small></div><em>Nu</em></div>
+          <div class="queue-item pick"><span class="queue-mark"></span><div><b>OU-219084</b><small>2 regels · Uitslag</small></div><em>+2</em></div>
+          <div class="queue-item count"><span class="queue-mark"></span><div><b>TT-003912</b><small>Controle · Tellen</small></div><em>+5</em></div>
+        </div>
+        <div class="side-footer"><strong>VanaPick Station</strong><br>WMS: Northstar ERP · API actief<br>Put-to-light: Wand 02 · verbonden</div>
+      </aside>
+
+      <main>
+        <div class="page-heading">
+          <div><p class="eyebrow" id="page-eyebrow">Inslag · Putaway</p><h1 id="page-title">Plaats artikel in bak</h1></div>
+          <div class="task-number">Taak <strong id="task-id">IN-840231</strong></div>
+        </div>
+
+        <div class="work-grid">
+          <section class="panel task-panel" aria-labelledby="task-instruction">
+            <div class="panel-kicker"><span id="task-source">Northstar ERP · Inslagorder</span><span class="pill" id="task-pill">Inslag</span></div>
+            <div class="bin-block">
+              <div class="bin-illustration" id="bin-code">B-0472</div>
+              <div class="bin-details"><small>Actieve Hai-bak</small><strong id="bin-label">Bin B-0472</strong></div>
+              <div class="bin-arrived"><span>●</span> Aangekomen</div>
+            </div>
+            <div class="instruction"><h2 id="task-instruction">Plaats artikel in bak</h2><p id="task-guidance">Scan het artikel en leg het gevraagde aantal in de getoonde bak.</p></div>
+            <div class="product-row">
+              <div class="product-swatch" id="product-icon">MX</div>
+              <div class="product-info"><strong id="product-name">M8 zeskantbout, verzinkt</strong><span id="product-description">Bevestigingsmateriaal · doos 100 stuks</span></div>
+              <div class="product-sku">Artikel<br><strong id="product-sku">MAT-008421</strong></div>
+            </div>
+            <div class="qty-layout">
+              <div class="qty-label" id="quantity-label">Te plaatsen<strong id="quantity-detail">Orderhoeveelheid: 240 stuks</strong></div>
+              <div class="stepper" aria-label="Aantal"><button id="qty-minus" aria-label="Aantal verlagen">−</button><output id="quantity">240</output><button id="qty-plus" aria-label="Aantal verhogen">+</button></div>
+            </div>
+            <div class="scan-field"><input id="scan-input" type="text" autocomplete="off" placeholder="Scan artikelbarcode" aria-label="Artikelbarcode"><button class="primary-action" id="scan-fill" style="width:auto;min-height:42px;padding:0 13px;white-space:nowrap">Simuleer scan</button></div>
+            <p class="scan-message" id="scan-message" aria-live="polite">Scan artikel <strong>MAT-008421</strong> om verder te gaan.</p>
+            <button class="primary-action" id="complete-task" disabled>Bevestig plaatsing</button>
+            <div class="task-meta"><span id="task-meta-left">Order IN-840231 · Regel 1 van 3</span><span id="task-meta-right">Bron: Northstar ERP</span></div>
+          </section>
+
+          <div class="right-column">
+            <section class="panel wall-panel" aria-labelledby="wall-title">
+              <div class="wall-header"><div><h2 id="wall-title">Put-to-light wand</h2><p id="wall-subtitle">Bestemming voor de actieve pickregel</p></div><div class="wall-status"><span class="state-dot"></span>Wand 02 online</div></div>
+              <div class="carton-list" id="carton-list">
+                <button class="carton" data-carton="A"><span class="carton-light">A</span><span class="carton-copy"><strong>Order OU-219084</strong><small>Doos A · Klant 10482</small></span><span class="carton-qty">3 stuks</span></button>
+                <button class="carton lit" data-carton="B"><span class="carton-light">B</span><span class="carton-copy"><strong>Order OU-219091</strong><small>Doos B · Klant 20814</small></span><span class="carton-qty">1 stuk</span></button>
+                <button class="carton" data-carton="C"><span class="carton-light">C</span><span class="carton-copy"><strong>Order OU-219117</strong><small>Doos C · Klant 31902</small></span><span class="carton-qty">2 stuks</span></button>
+              </div>
+              <p class="wall-hint" id="wall-hint">Licht brandt bij doos B. Plaats de gepickte artikelen in de aangegeven doos.</p>
+            </section>
+            <section class="panel flow-panel" aria-label="Taakvoortgang">
+              <div class="flow-title"><strong>Taakvoortgang</strong><span id="progress-label">1 van 3 regels</span></div>
+              <div class="flow-steps"><div class="flow-step done">Bak aangevraagd</div><div class="flow-step current">Bak ontvangen</div><div class="flow-step">Taak afronden</div></div>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const taskModes = {
+      putaway: {
+        eyebrow: "Inslag · Putaway", title: "Plaats artikel in bak", id: "IN-840231", source: "Northstar ERP · Inslagorder", pill: "Inslag", pillClass: "",
+        instruction: "Plaats artikel in bak", guidance: "Scan het artikel en leg het gevraagde aantal in de getoonde bak.", bin: "B-0472", item: "M8 zeskantbout, verzinkt", description: "Bevestigingsmateriaal · doos 100 stuks", sku: "MAT-008421", icon: "MX", qty: 240, qtyLabel: "Te plaatsen", qtyDetail: "Orderhoeveelheid: 240 stuks", scan: "Scan artikel MAT-008421 om verder te gaan.", meta: "Order IN-840231 · Regel 1 van 3", wall: false, action: "Bevestig plaatsing"
+      },
+      pick: {
+        eyebrow: "Uitslag · Picking", title: "Pick artikel uit bak", id: "OU-219084", source: "Northstar ERP · Pickorder", pill: "Uitslag", pillClass: "orange",
+        instruction: "Pick artikel uit bak", guidance: "Neem het gevraagde aantal uit de bak en plaats het in de verlichte doos.", bin: "B-1128", item: "Lager 608-2RS", description: "Aandrijftechniek · per stuk", sku: "LAG-000608", icon: "608", qty: 3, qtyLabel: "Te picken", qtyDetail: "Orderhoeveelheid: 3 stuks", scan: "Scan artikel LAG-000608 om verder te gaan.", meta: "Order OU-219084 · Regel 1 van 2", wall: true, action: "Bevestig pick"
+      },
+      count: {
+        eyebrow: "Voorraad · Telling", title: "Controleer bakinhoud", id: "TT-003912", source: "Northstar ERP · Telling", pill: "Telling", pillClass: "yellow",
+        instruction: "Tel en controleer voorraad", guidance: "Controleer artikel en voer het werkelijk getelde aantal in.", bin: "B-0831", item: "Kabelbinder 200 mm zwart", description: "Montagemateriaal · zak 100 stuks", sku: "MON-020154", icon: "CT", qty: 100, qtyLabel: "Geteld aantal", qtyDetail: "Verwacht: 100 stuks", scan: "Scan artikel MON-020154 om de telling te starten.", meta: "Telling TT-003912 · Artikel 1 van 1", wall: false, action: "Bevestig telling"
+      }
+    };
+    let currentMode = "putaway";
+    let currentQty = taskModes.putaway.qty;
+    let scanned = false;
+    let activeCarton = "B";
+    let toastTimer;
+    const $ = (id) => document.getElementById(id);
+    const scanInput = $("scan-input");
+    const completeButton = $("complete-task");
+
+    function showToast(message) {
+      const toast = $("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    function renderMode(mode) {
+      currentMode = mode;
+      const task = taskModes[mode];
+      currentQty = task.qty;
+      scanned = false;
+      document.querySelectorAll(".mode-button").forEach((button) => button.classList.toggle("active", button.dataset.mode === mode));
+      $("page-eyebrow").textContent = task.eyebrow;
+      $("page-title").textContent = task.title;
+      $("task-id").textContent = task.id;
+      $("task-source").textContent = task.source;
+      $("task-pill").textContent = task.pill;
+      $("task-pill").className = `pill ${task.pillClass}`.trim();
+      $("task-instruction").textContent = task.instruction;
+      $("task-guidance").textContent = task.guidance;
+      $("bin-code").textContent = task.bin;
+      $("bin-label").textContent = `Bin ${task.bin}`;
+      $("product-name").textContent = task.item;
+      $("product-description").textContent = task.description;
+      $("product-sku").textContent = task.sku;
+      $("product-icon").textContent = task.icon;
+      $("quantity-label").firstChild.textContent = `${task.qtyLabel} `;
+      $("quantity-detail").textContent = task.qtyDetail;
+      $("quantity").textContent = currentQty;
+      $("scan-message").innerHTML = `Scan artikel <strong>${task.sku}</strong> om verder te gaan.`;
+      $("scan-message").className = "scan-message";
+      $("task-meta-left").textContent = task.meta;
+      $("complete-task").textContent = task.action;
+      $("wall-subtitle").textContent = task.wall ? "Bestemming voor de actieve pickregel" : "Geen actieve bestemming in deze taak";
+      $("wall-hint").textContent = task.wall ? `Licht brandt bij doos ${activeCarton}. Plaats de gepickte artikelen in de aangegeven doos.` : "De put-to-lightwand wordt gebruikt bij picktaken.";
+      $("carton-list").style.opacity = task.wall ? "1" : ".55";
+      $("carton-list").style.pointerEvents = task.wall ? "auto" : "none";
+      completeButton.disabled = true;
+      scanInput.value = "";
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const isCount = currentMode === "count";
+      $("progress-label").textContent = isCount ? "1 artikel" : "1 van 3 regels";
+      const steps = document.querySelectorAll(".flow-step");
+      steps[0].className = "flow-step done";
+      steps[1].className = scanned ? "flow-step done" : "flow-step current";
+      steps[2].className = scanned ? "flow-step current" : "flow-step";
+    }
+
+    function validateScan(value) {
+      const task = taskModes[currentMode];
+      const cleaned = value.trim().toUpperCase();
+      const message = $("scan-message");
+      if (cleaned === task.sku || cleaned === "DEMO") {
+        scanned = true;
+        message.textContent = `Artikel ${task.sku} herkend. Controleer het aantal en bevestig.`;
+        message.className = "scan-message success";
+        completeButton.disabled = false;
+        updateProgress();
+        return true;
+      }
+      scanned = false;
+      message.textContent = cleaned ? `Onbekende barcode. Verwacht: ${task.sku}.` : `Scan artikel ${task.sku} om verder te gaan.`;
+      message.className = cleaned ? "scan-message error" : "scan-message";
+      completeButton.disabled = true;
+      updateProgress();
+      return false;
+    }
+
+    document.querySelectorAll(".mode-button").forEach((button) => button.addEventListener("click", () => renderMode(button.dataset.mode)));
+    $("qty-minus").addEventListener("click", () => { currentQty = Math.max(0, currentQty - 1); $("quantity").textContent = currentQty; });
+    $("qty-plus").addEventListener("click", () => { currentQty += 1; $("quantity").textContent = currentQty; });
+    scanInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") { event.preventDefault(); validateScan(scanInput.value); }
+    });
+    $("scan-fill").addEventListener("click", () => {
+      scanInput.value = taskModes[currentMode].sku;
+      validateScan(scanInput.value);
+      scanInput.focus();
+    });
+    $("carton-list").addEventListener("click", (event) => {
+      const carton = event.target.closest(".carton");
+      if (!carton) return;
+      activeCarton = carton.dataset.carton;
+      document.querySelectorAll(".carton").forEach((item) => item.classList.toggle("lit", item === carton));
+      $("wall-hint").textContent = `Licht geactiveerd bij doos ${activeCarton}. Plaats de gepickte artikelen in de aangegeven doos.`;
+    });
+    completeButton.addEventListener("click", () => {
+      const task = taskModes[currentMode];
+      const message = currentMode === "pick" ? `${currentQty} stuks bevestigd voor doos ${activeCarton}.` : currentMode === "count" ? `Telling van ${currentQty} stuks bevestigd.` : `${currentQty} stuks geplaatst in bak ${task.bin}.`;
+      showToast(message);
+      scanned = false;
+      completeButton.disabled = true;
+      scanInput.value = "";
+      $("scan-message").textContent = `Regel bevestigd. Scan het volgende artikel of wacht op de volgende bak.`;
+      $("scan-message").className = "scan-message success";
+      updateProgress();
+    });
+    $("station").addEventListener("change", (event) => showToast(`${event.target.value} geselecteerd.`));
+  </script>
+</body>
+</html>
